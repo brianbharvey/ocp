@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Guest Management System{% endblock %}
+
+{% block content %}
+<div class=container-md>
+    <h1 class="display-2 text-center">One City Peterborough</h1>
+    <div>
+        <p class="display-6 text-center">Trinity Overnight Registry</p>
+    </div>
+    <p class="display-6 text-center">Intake List</p>
+    <div class="list-group list-group-striped shadow">
+        {% for intake in intakes %}
+        <a class="list-group-item list-group-item-action" href="{% url 'update_intake' intake.pk %}">{{ guest }}</a>
+        {% endfor %}
+    </div>
+    <a class="btn btn-outline-primary" href="{% url 'new_intake' %}">New Intake</a>
+</div>
+{% endblock %}

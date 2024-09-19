@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Guest, Intake, Turnaway
 from .forms import GuestForm, IntakeForm, TurnawayForm
+from django.core.paginator import Paginator
 
 def index(request):
     return render(request, 'index.html')
@@ -29,7 +30,10 @@ def update_guest(request, pk):
 
 def guest_list(request):
     guests = Guest.objects.all()
-    return render(request, 'guest_list.html', {'guests': guests})
+    paginator = Paginator(guests, 20)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'guest_list.html', {'page_obj': page_obj})
 
 def new_intake(request):
     if request.method == 'POST':
@@ -79,7 +83,7 @@ def update_turnaway(request, pk):
 
 def turnaway_list(request):
     turnaways = Turnaway.objects.all()
-    return render(request, 'guest_app/turnaway_list.html', {'turnaways': turnaways})
+    return render(request, 'turnaway_list.html', {'turnaways': turnaways})
 
 # Add statistics view logic here as needed
 def Statistics(request):

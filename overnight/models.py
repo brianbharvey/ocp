@@ -76,7 +76,8 @@ class Turnaway(models.Model):
     notes = models.TextField(max_length=1000, blank=True, null=True)
 
     def __str__(self):
-        return f"Turnaway for {self.guest.full_name()} on {self.date}"
+        formatted_time = self.time.strftime('%H:%M')
+        return f"{self.guest.full_name()} at {formatted_time} on {self.date}"
 
 class Gender(models.Model):
     gender = models.CharField(max_length=50)
